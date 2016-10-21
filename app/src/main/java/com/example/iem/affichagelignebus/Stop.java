@@ -16,6 +16,8 @@ public class Stop {
     private List<Integer> idLine;
 
 
+    public Stop() {}
+
     public Stop(String name, int id, LatLng coord, List<Integer> idLine){
         this.mName = name;
         this.id = id;
@@ -35,6 +37,12 @@ public class Stop {
         return this.mCoord;
     }
 
+    public Double getLat() { return mCoord.latitude; }
+
+    public Double getLong() { return mCoord.longitude; }
+
+    public List<Integer> getIdLine() { return this.idLine; }
+
     public void setName(String name){
         this.mName = name;
     }
@@ -43,7 +51,11 @@ public class Stop {
         this.id = id;
     }
 
-    public void setCoord(LatLng coord){
-        this.mCoord = coord;
+    public void setCoord(Double coord1, Double coord2){
+        this.mCoord = new LatLng(coord1,coord2);
     }
+
+    public void setIdLine(List<Integer> idLine) { this.idLine = idLine; }
+
+
 }
