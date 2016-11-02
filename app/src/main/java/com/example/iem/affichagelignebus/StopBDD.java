@@ -17,7 +17,7 @@ import java.util.List;
 public class StopBDD {
 
     private static final int VERSION_BDD = 1;
-    private static final String NOM_BDD = "TUBstops.sqlite";
+    private static final String NOM_BDD = "TUBStops.sqlite";
 
     private static final String TABLE_STOPS = "table_stops";
     private static final String COL_ID = "ID";

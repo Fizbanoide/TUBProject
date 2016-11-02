@@ -5,6 +5,7 @@ import android.database.DatabaseErrorHandler;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.File;
@@ -22,8 +23,8 @@ public class MySQLite extends SQLiteOpenHelper {
     private final Context myContext;
     private static MySQLite sInstance;
 
-    private static final String DATABASE_NAME = "stops.sqlite";
-    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "TUBStops.sqlite";
+    private static final int DATABASE_VERSION = 3;
     private String DATABASE_PATH;
 
     public static synchronized MySQLite getsInstance(Context context){
@@ -35,8 +36,8 @@ public class MySQLite extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.myContext = context;
         String filesDir = context.getFilesDir().getPath();
-        DATABASE_PATH = filesDir.substring(0, filesDir.lastIndexOf("/")) + "/databases";
-
+        DATABASE_PATH = filesDir.substring(0, filesDir.lastIndexOf("/")) + "/databases/";
+        Log.d("Erreur : ", DATABASE_PATH);
         if (!checkdatabase()) {
             copydatabase();
         }
