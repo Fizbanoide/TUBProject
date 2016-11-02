@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by iem on 21/10/2016.
  */
@@ -85,7 +88,14 @@ public class StopBDD {
         stop.setId(c.getInt(NUM_COL_ID));
         stop.setName(c.getString(NUM_COL_NAME));
         stop.setCoord(c.getDouble(NUM_COL_LAT), c.getDouble(NUM_COL_LONG));
-        //stop.setIdLine(c.get); parser la liste dans la bdd avec des , pour split la liste et la recreer ici
+
+        List<Integer> lineId = new ArrayList<>();
+        String[] tableId = c.getString(NUM_COL_IDLINE).split(",");
+
+        for(int i = 0; i < tableId.length; i++) {
+            lineId.add(Integer.parseInt(tableId[i]));
+        }
+        stop.setIdLine(lineId); //parser la liste dans la bdd avec des , pour split la liste et la recreer ici
 
         c.close();
 

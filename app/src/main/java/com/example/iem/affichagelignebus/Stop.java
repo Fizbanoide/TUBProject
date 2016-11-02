@@ -41,7 +41,20 @@ public class Stop {
 
     public Double getLong() { return mCoord.longitude; }
 
-    public List<Integer> getIdLine() { return this.idLine; }
+    public String getIdLine() {
+        String result = "";
+        for(int i = 0; i < this.idLine.size(); i++) {
+            if(i == 0){
+                result = this.idLine.get(i).toString();
+            }
+            else {
+                result += "," + this.idLine.get(i).toString();
+            }
+
+        }
+
+        return result;
+    }
 
     public void setName(String name){
         this.mName = name;
