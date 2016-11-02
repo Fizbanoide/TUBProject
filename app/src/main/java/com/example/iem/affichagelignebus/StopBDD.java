@@ -17,7 +17,7 @@ import java.util.List;
 public class StopBDD {
 
     private static final int VERSION_BDD = 1;
-    private static final String NOM_BDD = "stops.sqlite";
+    private static final String NOM_BDD = "TUBstops.sqlite";
 
     private static final String TABLE_STOPS = "table_stops";
     private static final String COL_ID = "ID";
@@ -59,10 +59,11 @@ public class StopBDD {
 
     public int modStop(int id, Stop stop){
         ContentValues values = new ContentValues();
+        values.put(COL_ID, stop.getId());
         values.put(COL_NAME, stop.getName());
-        values.put(COL_LAT, String.valueOf(stop.getLat()));
-        values.put(COL_LONG, String.valueOf(stop.getLong()));
-        values.put(COL_IDLINE, String.valueOf(stop.getIdLine()));
+        values.put(COL_LAT, stop.getLat());
+        values.put(COL_LONG, stop.getLong());
+        values.put(COL_IDLINE, stop.getIdLine());
 
         return db.update(TABLE_STOPS, values, String.format("%s = %s",COL_ID, id), null);
     }
