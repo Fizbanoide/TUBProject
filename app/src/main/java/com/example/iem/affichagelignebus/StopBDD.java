@@ -73,7 +73,8 @@ public class StopBDD {
     }
 
     public Stop getStopWithName(String name) {
-        Cursor c = db.query(TABLE_STOPS, new String[] {COL_ID, COL_NAME, COL_LAT, COL_LONG, COL_IDLINE}, COL_NAME + " LIKE \"" + name +"\"", null, null, null, null);
+        //Cursor c = db.query(TABLE_STOPS, new String[] {COL_ID, COL_NAME, COL_LAT, COL_LONG, COL_IDLINE}, COL_NAME + " LIKE \"" + name +"\"", null, null, null, null);
+        Cursor c = db.rawQuery("SELECT * FROM "+ TABLE_STOPS + " WHERE " + COL_NAME + " LIKE '" + name + "'", null);
         return cursorToStop(c);
     }
 

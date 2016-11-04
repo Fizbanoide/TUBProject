@@ -39,6 +39,7 @@ public class MySQLite extends SQLiteOpenHelper {
         DATABASE_PATH = filesDir.substring(0, filesDir.lastIndexOf("/")) + "/databases/";
         Log.d("Erreur : ", DATABASE_PATH);
         if (!checkdatabase()) {
+
             copydatabase();
         }
 
