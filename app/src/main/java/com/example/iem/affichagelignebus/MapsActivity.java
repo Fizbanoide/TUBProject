@@ -8,18 +8,24 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.kml.KmlLayer;
 
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-
+    private StopBDD stops;
+    private List<Stop> stopLigne5;
+    private Ligne ligne5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +36,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        StopBDD stops = new StopBDD(this);
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                return false;
+            }
+        });
+        stops = new StopBDD(this);
         stops.open();
 
-        Log.d("Arrets", String.valueOf(stops.getStopWithName("Clos").getName()));
+        stopLigne5 = new ArrayList<>();
+
+        stopLigne5 = stops.getLine();
+        //Log.d("Erreur :", String.valueOf(stopLigne5.get(0).getName()));
+        //LatLng closStop = new LatLng(stops.getStopWithName("Clos").getLat(), stops.getStopWithName("Clos").getLong());
+
+        //Log.d("Arret :", String.valueOf(stops.getStopWithName("Clos").getName()));
+        //mMap.addMarker(new MarkerOptions().position(closStop).title("Marker in Clos"));
 
     }
 
@@ -59,12 +78,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             e.printStackTrace();
         }
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        LatLng beb = new LatLng(46.2, 5.2167);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.addMarker( new MarkerOptions().position(beb).title("Bourg-en-Bresse"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(beb));
+        addMarkerstoMap(googleMap);
+
 
 
     }
+
+    public void addMarkerstoMap(GoogleMap googleMap) {
+
+        for(int i = 0; i < stopLigne5.size(); ++i){
+
+            LatLng closStop = new LatLng(stopLigne5.get(i).getLat(), stopLigne5.get(i).getLong());
+            //Log.d("Erreur :" , String.valueOf(i));
+            //Log.d(String.valueOf(closStop), String.valueOf(stops.getStopWithId(i).getName()));
+            mMap.addMarker(new MarkerOptions()
+                    .position(closStop).title("Marker in " + stopLigne5.get(i).getName())
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.newmarker)));
+
+        }
+
+
+    }
+
 }

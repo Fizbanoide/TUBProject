@@ -73,9 +73,29 @@ public class StopBDD {
     }
 
     public Stop getStopWithName(String name) {
-        //Cursor c = db.query(TABLE_STOPS, new String[] {COL_ID, COL_NAME, COL_LAT, COL_LONG, COL_IDLINE}, COL_NAME + " LIKE \"" + name +"\"", null, null, null, null);
         Cursor c = db.rawQuery("SELECT * FROM "+ TABLE_STOPS + " WHERE " + COL_NAME + " LIKE '" + name + "'", null);
+        c.moveToFirst();
         return cursorToStop(c);
+    }
+
+    public Stop getStopWithId(Integer id) {
+        Cursor c = db.rawQuery("SELECT * FROM "+ TABLE_STOPS + " WHERE " + COL_ID + " LIKE '" + id + "'", null);
+        c.moveToFirst();
+        return cursorToStop(c);
+    }
+
+    public List<Stop> getLine() {
+        Cursor c = db.rawQuery("SELECT * FROM "+ TABLE_STOPS , null);
+        c.moveToFirst();
+        List<Stop> stopsLine = new ArrayList<>();
+
+        while(c.moveToNext()){
+            stopsLine.add(cursorToStop(c));
+        }
+
+        c.close();
+
+        return stopsLine;
     }
 
     private Stop cursorToStop(Cursor c){
@@ -83,7 +103,7 @@ public class StopBDD {
             return null;
         }
 
-        c.moveToFirst();
+
 
         Stop stop = new Stop();
 
@@ -99,7 +119,7 @@ public class StopBDD {
         }
         stop.setIdLine(lineId); //parser la liste dans la bdd avec des , pour split la liste et la recreer ici
 
-        c.close();
+
 
         return stop;
     }
