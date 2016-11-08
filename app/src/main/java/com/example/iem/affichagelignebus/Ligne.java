@@ -8,13 +8,14 @@ import java.util.List;
 
 public class Ligne {
 
-    private String mName_ligne;
-    private int mId_Ligne;
+    private String mDir_ligne;
+    private int mId, mId_Ligne;
     private List<Stop> stops;
 
-    public Ligne(String name, int id, List<Stop> stops) {
-        this.mName_ligne = name;
-        this.mId_Ligne = id;
+    public Ligne(String dir, int id,int id_Ligne, List<Stop> stops) {
+        this.mDir_ligne = dir;
+        this.mId = id;
+        this.mId_Ligne = id_Ligne;
         this.stops = stops;
     }
 
@@ -22,17 +23,27 @@ public class Ligne {
         return this.mId_Ligne;
     }
 
-    public String getName_ligne() {
-        return this.mName_ligne;
+    public String getDir_ligne() {
+        return this.mDir_ligne;
     }
 
-    public void setName_ligne(String name){
-        this.mName_ligne = name;
+    public int getId() {
+        return this.mId;
+    }
+
+    public void setDir_ligne(String dir){
+        this.mDir_ligne = dir;
     }
 
     public void setId_Ligne(int id){
         this.mId_Ligne = id;
     }
+
+    public void setmId(int id) {
+        this.mId = id;
+    }
+
+
 
 
 }

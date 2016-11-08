@@ -23,7 +23,7 @@ public class MySQLite extends SQLiteOpenHelper {
     private final Context myContext;
     private static MySQLite sInstance;
 
-    private static final String DATABASE_NAME = "TUBStops.sqlite";
+    private static final String DATABASE_NAME = "TUB_app_DB.sqlite";
     private static final int DATABASE_VERSION = 3;
     private String DATABASE_PATH;
 

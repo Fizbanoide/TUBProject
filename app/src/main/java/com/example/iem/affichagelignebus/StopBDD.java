@@ -17,9 +17,9 @@ import java.util.List;
 public class StopBDD {
 
     private static final int VERSION_BDD = 1;
-    private static final String NOM_BDD = "TUBStops.sqlite";
+    private static final String NOM_BDD = "TUB_app_DB.sqlite";
 
-    private static final String TABLE_STOPS = "table_stops";
+    private static final String TABLE_STOPS = "arrets";
     private static final String COL_ID = "ID";
     private static final int NUM_COL_ID = 0;
     private static final String COL_NAME = "NAME";
@@ -28,8 +28,6 @@ public class StopBDD {
     private static final int NUM_COL_LAT = 2;
     private static final String COL_LONG = "LONG";
     private static final int NUM_COL_LONG = 3;
-    private static final String COL_IDLINE = "ID LINE";
-    private static final int NUM_COL_IDLINE = 4;
 
     private SQLiteDatabase db;
 
@@ -52,7 +50,6 @@ public class StopBDD {
         values.put(COL_NAME, stop.getName());
         values.put(COL_LAT, String.valueOf(stop.getLat()));
         values.put(COL_LONG, String.valueOf(stop.getLong()));
-        values.put(COL_IDLINE, String.valueOf(stop.getIdLine()));
 
         return db.insert(TABLE_STOPS,null,values);
     }
@@ -63,7 +60,6 @@ public class StopBDD {
         values.put(COL_NAME, stop.getName());
         values.put(COL_LAT, stop.getLat());
         values.put(COL_LONG, stop.getLong());
-        values.put(COL_IDLINE, stop.getIdLine());
 
         return db.update(TABLE_STOPS, values, String.format("%s = %s",COL_ID, id), null);
     }
@@ -112,11 +108,7 @@ public class StopBDD {
         stop.setCoord(c.getDouble(NUM_COL_LAT), c.getDouble(NUM_COL_LONG));
 
         List<Integer> lineId = new ArrayList<>();
-        String[] tableId = c.getString(NUM_COL_IDLINE).split(",");
 
-        for(int i = 0; i < tableId.length; i++) {
-            lineId.add(Integer.parseInt(tableId[i]));
-        }
         stop.setIdLine(lineId); //parser la liste dans la bdd avec des , pour split la liste et la recreer ici
 
 

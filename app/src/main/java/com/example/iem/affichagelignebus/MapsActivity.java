@@ -40,8 +40,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         stops.open();
 
         stopLigne5 = new ArrayList<>();
-
         stopLigne5 = stops.getLine();
+        ligne5 = new Ligne("Norelan", 1, 1, stopLigne5);
         //Log.d("Erreur :", String.valueOf(stopLigne5.get(0).getName()));
         //LatLng closStop = new LatLng(stops.getStopWithName("Clos").getLat(), stops.getStopWithName("Clos").getLong());
 
@@ -95,7 +95,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             //Log.d(String.valueOf(closStop), String.valueOf(stops.getStopWithId(i).getName()));
             mMap.addMarker(new MarkerOptions()
                     .position(closStop).title(stopLigne5.get(i).getName())
-                    .snippet("Lignes: " + stopLigne5.get(i).getIdLine())
+                    .snippet("Lignes: " + ligne5.getId_Ligne())
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.newmarker)));
 
         }
