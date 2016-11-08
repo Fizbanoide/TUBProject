@@ -32,17 +32,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                //Afficher le nom de l'arret, les lignes qui y passent et le prochain horaire de passage
-                return false;
-            }
-        });
+
         stops = new StopBDD(this);
         stops.open();
 
@@ -79,6 +72,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             e.printStackTrace();
         }
         // Add a marker in Sydney and move the camera
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
+                marker.showInfoWindow();
+                return true;
+            }
+        });
         addMarkerstoMap(googleMap);
 
 
@@ -93,7 +94,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             //Log.d("Erreur :" , String.valueOf(i));
             //Log.d(String.valueOf(closStop), String.valueOf(stops.getStopWithId(i).getName()));
             mMap.addMarker(new MarkerOptions()
-                    .position(closStop).title("Marker in " + stopLigne5.get(i).getName())
+                    .position(closStop).title(stopLigne5.get(i).getName())
+                    .snippet("Lignes: " + stopLigne5.get(i).getIdLine())
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.newmarker)));
 
         }
