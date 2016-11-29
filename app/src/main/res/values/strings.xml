@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">AffichageLigneBus</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="app_name">Project_TUB</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_carte">Map</string>
 </resources>

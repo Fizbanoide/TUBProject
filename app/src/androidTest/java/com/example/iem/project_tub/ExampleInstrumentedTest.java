@@ -1,4 +1,4 @@
-package com.example.iem.affichagelignebus;
+package com.example.iem.project_tub;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.iem.affichagelignebus", appContext.getPackageName());
+        assertEquals("com.example.iem.project_tub", appContext.getPackageName());
     }
 }

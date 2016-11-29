@@ -1,4 +1,4 @@
-package com.example.iem.affichagelignebus;
+package com.example.iem.project_tub;
 
 import org.junit.Test;
 
