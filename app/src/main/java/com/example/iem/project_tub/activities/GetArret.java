@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.iem.project_tub.R;
 import com.example.iem.project_tub.adapters.Arret_Adapter;
+import com.example.iem.project_tub.controller.WebServiceManager;
 import com.example.iem.project_tub.models.Arret;
 import com.example.iem.project_tub.models.ArretManager;
 
@@ -26,7 +27,8 @@ public class GetArret extends AppCompatActivity {
 
         Intent intentReceived = getIntent();
 
-        final List<Arret> arretList = ArretManager.getInstance(this).getArretsByLigne(intentReceived.getIntExtra("idLigne", 0));
+        int idLigne = intentReceived.getIntExtra("idLigne", 0);
+        final List<Arret> arretList = WebServiceManager.getInstance(this).getArretsWithLigne(idLigne);
 
         TextView tvNomLigne = (TextView) findViewById(R.id.get_arret_activity_tv_nom_ligne);
         tvNomLigne.setText(intentReceived.getStringExtra("nomLigne"));

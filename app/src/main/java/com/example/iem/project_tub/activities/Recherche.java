@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.iem.project_tub.R;
+import com.example.iem.project_tub.controller.WebServiceManager;
 import com.example.iem.project_tub.models.Arret;
 import com.example.iem.project_tub.models.ArretManager;
 import com.example.iem.project_tub.models.Ligne;
@@ -36,8 +37,8 @@ public class Recherche extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recherche);
 
-        ligneList = LigneManager.getInstance(this).getLigneList();
-        arretList = ArretManager.getInstance(this).getArrets();
+        ligneList = WebServiceManager.getInstance(this).getLignes();
+        arretList = WebServiceManager.getInstance(this).getArrets();
 
         btLigne = (Button) findViewById(R.id.main_activity_bt_choisir_ligne);
         btArret = (Button) findViewById(R.id.main_activity_bt_choisir_arret);
