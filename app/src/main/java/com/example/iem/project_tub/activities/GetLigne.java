@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import com.example.iem.project_tub.R;
 import com.example.iem.project_tub.adapters.Ligne_Adapter;
+import com.example.iem.project_tub.controller.WebServiceManager;
 import com.example.iem.project_tub.models.Ligne;
 import com.example.iem.project_tub.models.LigneManager;
 
@@ -22,7 +23,7 @@ public class GetLigne extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_ligne);
 
-        final List<Ligne> ligneList = LigneManager.getInstance(this).getLigneList();
+        final List<Ligne> ligneList = WebServiceManager.getInstance(this).getLignes();
 
         final ListView ligneListView = (ListView) findViewById(R.id.get_ligne_activity_lv_lignes);
         ligneListView.setAdapter(new Ligne_Adapter(this, ligneList));
