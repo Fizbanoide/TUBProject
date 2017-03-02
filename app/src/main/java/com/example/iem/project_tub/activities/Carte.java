@@ -1,13 +1,11 @@
 package com.example.iem.project_tub.activities;
 
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.FragmentActivity;
 
 import com.example.iem.project_tub.R;
 import com.example.iem.project_tub.models.Arret;
-import com.example.iem.project_tub.models.ArretManager;
 import com.example.iem.project_tub.models.Ligne;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -18,17 +16,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Carte extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private List<Arret> stopLigne;
-    private Ligne ligne5;
+    private List<Arret> stopLigne = new ArrayList<>();
+    private Ligne ligne;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +33,7 @@ public class Carte extends FragmentActivity implements OnMapReadyCallback {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-
-        stopLigne = ArretManager.getInstance(this).getArrets();
+        // TODO : récupérer les arrets
 
 
         //Log.d("Erreur :", String.valueOf(stopLigne5.get(0).getName()));

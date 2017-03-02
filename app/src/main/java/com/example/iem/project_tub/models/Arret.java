@@ -1,6 +1,8 @@
 package com.example.iem.project_tub.models;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by iem on 02/11/2016.
@@ -8,8 +10,14 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class Arret {
 
+    @SerializedName("id")
+    @Expose
     private int id;
+    @SerializedName("name")
+    @Expose
     private String nom;
+    @SerializedName("Coordonales")
+    @Expose
     private LatLng coord;
 
     public Arret() {}
@@ -24,10 +32,6 @@ public class Arret {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getNom() {
         return nom;
     }
@@ -39,12 +43,4 @@ public class Arret {
     public Double getLat() { return coord.latitude; }
 
     public Double getLong() { return coord.longitude; }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public void setCoord(Double coord1, Double coord2){
-        this.coord = new LatLng(coord1,coord2);
-    }
 }

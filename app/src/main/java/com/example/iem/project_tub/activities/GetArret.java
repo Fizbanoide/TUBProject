@@ -2,21 +2,26 @@ package com.example.iem.project_tub.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import android.widget.Toast;
 
 import com.example.iem.project_tub.R;
-import com.example.iem.project_tub.adapters.Arret_Adapter;
-import com.example.iem.project_tub.controller.WebServiceManager;
+import com.example.iem.project_tub.adapters.ArretAdapter;
+import com.example.iem.project_tub.controller.APIClient;
 import com.example.iem.project_tub.models.Arret;
-import com.example.iem.project_tub.models.ArretManager;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class GetArret extends AppCompatActivity {
 
@@ -26,21 +31,39 @@ public class GetArret extends AppCompatActivity {
         setContentView(R.layout.activity_get_arret);
 
         Intent intentReceived = getIntent();
-
         int idLigne = intentReceived.getIntExtra("idLigne", 0);
-        final List<Arret> arretList = WebServiceManager.getInstance(this).getArretsWithLigne(idLigne);
-
         TextView tvNomLigne = (TextView) findViewById(R.id.get_arret_activity_tv_nom_ligne);
         tvNomLigne.setText(intentReceived.getStringExtra("nomLigne"));
 
         final ListView arretListView = (ListView) findViewById(R.id.get_arret_activity_lv_arrets);
-        arretListView.setAdapter(new Arret_Adapter(arretList, this));
+        final ArretAdapter arretAdapter = new ArretAdapter(this, new ArrayList<Arret>());
+        arretListView.setAdapter(arretAdapter);
+
+        Call<List<Arret>> listArretCall = APIClient.getApiInterface().getListArrets();
+        listArretCall.enqueue(new Callback<List<Arret>>() {
+            @Override
+            public void onResponse(Call<List<Arret>> call, Response<List<Arret>> response) {
+                if (response.body() == null) {
+                    Log.d("COUCOU", "ListLigne est null");
+                    // Toast
+                } else {
+                    arretAdapter.swapItems(response.body());
+                    arretAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Arret>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Erreur lors du chargement des lignes", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         arretListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intentReturn = new Intent();
-                intentReturn.putExtra("idArret", arretList.get(position).getId());
+                intentReturn.putExtra("idArret", arretAdapter.getItem(position).getId());
                 setResult(Activity.RESULT_OK, intentReturn);
                 finish();
             }
