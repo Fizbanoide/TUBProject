@@ -32,6 +32,8 @@ public class GetArret extends AppCompatActivity {
 
         Intent intentReceived = getIntent();
         int idLigne = intentReceived.getIntExtra("idLigne", 0);
+        int idArretDepart = intentReceived.getIntExtra("idArretDepart", -1);
+
         TextView tvNomLigne = (TextView) findViewById(R.id.get_arret_activity_tv_nom_ligne);
         tvNomLigne.setText(intentReceived.getStringExtra("nomLigne"));
 
@@ -39,24 +41,48 @@ public class GetArret extends AppCompatActivity {
         final ArretAdapter arretAdapter = new ArretAdapter(this, new ArrayList<Arret>());
         arretListView.setAdapter(arretAdapter);
 
-        Call<List<Arret>> listArretCall = APIClient.getApiInterface().getListArrets();
-        listArretCall.enqueue(new Callback<List<Arret>>() {
-            @Override
-            public void onResponse(Call<List<Arret>> call, Response<List<Arret>> response) {
-                if (response.body() == null) {
-                    Log.d("COUCOU", "ListLigne est null");
-                    // Toast
-                } else {
-                    arretAdapter.swapItems(response.body());
-                    arretAdapter.notifyDataSetChanged();
+        // Si on a pas reçu d'arret de départ on récupère tous les arrets d'une ligne
+        if (idArretDepart == -1) {
+            Call<List<Arret>> listArretCall = APIClient.getApiInterface().getArretsFromLigne(idLigne);
+            listArretCall.enqueue(new Callback<List<Arret>>() {
+                @Override
+                public void onResponse(Call<List<Arret>> call, Response<List<Arret>> response) {
+                    if (response.body() == null) {
+                        Log.d("COUCOU", "ListLigne est null");
+                        // Toast
+                    } else {
+                        arretAdapter.swapItems(response.body());
+                        arretAdapter.notifyDataSetChanged();
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<List<Arret>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Erreur lors du chargement des lignes", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFailure(Call<List<Arret>> call, Throwable t) {
+                    Toast.makeText(getApplicationContext(), "Erreur lors du chargement des arrets", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            // Sinon on récupère tous les arrets de la ligne APRES l'arret donné
+            Call<List<Arret>> listArretCall = APIClient.getApiInterface().getArretsFromLigneNext(idLigne, idArretDepart);
+            listArretCall.enqueue(new Callback<List<Arret>>() {
+                @Override
+                public void onResponse(Call<List<Arret>> call, Response<List<Arret>> response) {
+                    if (response.body() == null) {
+                        Log.d("COUCOU", "ListLigne est null");
+                        // Toast
+                    } else {
+                        arretAdapter.swapItems(response.body());
+                        arretAdapter.notifyDataSetChanged();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Arret>> call, Throwable t) {
+                    Toast.makeText(getApplicationContext(), "Erreur lors du chargement des arrets", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
 
 
         arretListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

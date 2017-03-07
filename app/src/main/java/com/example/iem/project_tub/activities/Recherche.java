@@ -39,7 +39,7 @@ public class Recherche extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recherche);
 
-        Call<List<Ligne>> listLigneCall = APIClient.getApiInterface().getListLignes();
+        Call<List<Ligne>> listLigneCall = APIClient.getApiInterface().getAllLignes();
         listLigneCall.enqueue(new Callback<List<Ligne>>() {
             @Override
             public void onResponse(Call<List<Ligne>> call, Response<List<Ligne>> response) {
@@ -53,7 +53,7 @@ public class Recherche extends AppCompatActivity {
             }
         });
 
-        Call<List<Arret>> listArretCall = APIClient.getApiInterface().getListArrets();
+        Call<List<Arret>> listArretCall = APIClient.getApiInterface().getAllArrets();
         listArretCall.enqueue(new Callback<List<Arret>>() {
             @Override
             public void onResponse(Call<List<Arret>> call, Response<List<Arret>> response) {

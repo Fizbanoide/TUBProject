@@ -15,17 +15,18 @@ import com.example.iem.project_tub.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btCarte, btRecherche;
     TextView tvCarte, tvRecherche;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btCarte = (Button) findViewById(R.id.btCarte);
-        btRecherche = (Button) findViewById(R.id.btRecherche);
-        tvCarte = (TextView) findViewById(R.id.tvCarte);
-        tvRecherche = (TextView) findViewById(R.id.tvRecherche);
+        Button btCarte = (Button) findViewById(R.id.activity_main_bt_carte);
+        Button btRecherche = (Button) findViewById(R.id.activity_main_bt_recherche);
+        Button btTrajet = (Button) findViewById(R.id.activity_main_bt_trajet);
+
+
+        tvRecherche = (TextView) findViewById(R.id.tvRecherche);tvCarte = (TextView) findViewById(R.id.tvCarte);
 
         btRecherche.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,6 +44,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btCarte.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent carte = new Intent(MainActivity.this, Carte.class);
+                startActivity(carte);
+            }
+        });
+
+        btTrajet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent trajet = new Intent(MainActivity.this, Trajet.class);
+                startActivity(trajet);
+            }
+        });
 
     }
 

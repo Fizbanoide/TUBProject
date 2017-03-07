@@ -33,7 +33,7 @@ public class GetLigne extends AppCompatActivity {
         final LigneAdapter ligneAdapter = new LigneAdapter(this, new ArrayList<Ligne>());
         ligneListView.setAdapter(ligneAdapter);
 
-        Call<List<Ligne>> listLigneCall = APIClient.getApiInterface().getListLignes();
+        Call<List<Ligne>> listLigneCall = APIClient.getApiInterface().getAllLignes();
         listLigneCall.enqueue(new Callback<List<Ligne>>() {
             @Override
             public void onResponse(Call<List<Ligne>> call, Response<List<Ligne>> response) {

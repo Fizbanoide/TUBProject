@@ -49,7 +49,7 @@ public class Horaires extends AppCompatActivity {
         String horairesTxt = "";
 
         for (Horaire horaire : horaireList){
-            horairesTxt = horairesTxt + " " + horaire.getHeure();
+            horairesTxt = horairesTxt + "\n" + horaire.getHeure().substring(0, 5);
         }
 
         TextView tvHoraires = (TextView) findViewById(R.id.horaire_activity_tv_horaires);
