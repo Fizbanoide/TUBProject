@@ -57,14 +57,14 @@ public class Carte extends FragmentActivity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        /*try {
+        try {
             KmlLayer layer = new KmlLayer(mMap, R.raw.ligne5, getApplicationContext());
             layer.addLayerToMap();
         } catch (XmlPullParserException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
         // Add a marker in Sydney and move the camera
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
